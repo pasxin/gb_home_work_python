@@ -1,6 +1,5 @@
 # Задайте список из n чисел последовательности (1+1/n)^n и выведите на экран их сумму.
-result = 0
+
 n = int (input("введите диапазон "))
-for i in range (1,n+1):
-    result += (1+1/n)**n
-print ('%.2f' % result)
+x = [(1+1/i)**i for i in range (1,n+1)]
+print ('%.2f' % sum(x))

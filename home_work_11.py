@@ -1,9 +1,6 @@
 # Задайте список из нескольких чисел. Напишите программу,
 # которая найдёт сумму элементов списка, стоящих на нечётной позиции.
 
-list = [1, 2, 3, 4, 5, 6, 7, 8]
-resultat = 0
-for i in range (1,len (list),2):
-    resultat += list [i]
-print ("Cумму элементов списка, стоящих на нечётной позиции: ", resultat)
-    
+list = [i for i in range (10,20)]
+list_neg = [list [i] for i in range (1,len (list),2)]
+print (sum(list_neg))
