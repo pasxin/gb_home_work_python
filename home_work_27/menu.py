@@ -29,19 +29,3 @@ def menu():
             print (txt_reader('file_for_HW_27_line.csv'))
         elif menu_2 == 4: 
             print (txt_reader('file_for_HW_27.csv'))
-        
-        
-
-    
-        
-
-
-
-
-
-
-
-
-
-
-menu ()
