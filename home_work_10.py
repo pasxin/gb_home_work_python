@@ -1,7 +1,7 @@
 # Реализуйте алгоритм перемешивания списка (метод random.shuffle использовать нельзя, 
 # но другие методы из библиотеки random - можно).
 import random
-list = [0,1,2,3,4,5,6,7,8,9]
+list = [i for i in range (10)]
 size = len (list)
 for count in range (size):
     position = random.randint (0,size-1)
