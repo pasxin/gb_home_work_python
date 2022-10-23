@@ -35,7 +35,7 @@ def bd_catalog():
         add_text ('catalog.csv',text)
     if menu == 4:
         text = read_file('catalog.csv')
-        rename = int(input ('Укажите стрончу нобходимую скорректировать: '))
+        rename = int(input ('Укажите стрончу нобходимую удалить: '))
         print ("Данная строчка  " + str (text [rename]) + " будет удалена")
         print ('1 - Подтвердить изменение')
         print ('2 - Отменить изменения')
