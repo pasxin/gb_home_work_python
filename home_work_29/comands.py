@@ -1,5 +1,17 @@
 import csv
 
+def filter_name (file):
+    count = 0
+    resultat = []
+    second_name = input ('Фамилию необходимого контакта: ')
+    with open(file, encoding="utf8") as csvfile:
+        reader = csv.reader(csvfile, delimiter=';',)
+        for row in reader:
+            if row[1] == second_name:
+                resultat.append (row)
+                count+=1
+    if count == 0: print ('В базе данных отсутствует человек с такой фамилией')
+    return (resultat,count)
 
 # чтение csv-файла
 def read_file (file):
