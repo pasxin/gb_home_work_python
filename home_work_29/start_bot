@@ -1,0 +1,79 @@
+from comands import *
+from telegram import Update, Bot
+from telegram.ext import Updater, CommandHandler, MessageHandler
+
+
+bot_token = '5667237284:AAFD0Tjsu48rNgI2oJTUxGb2uY5PQqSrpls'    
+bot = Bot(bot_token)
+updater = Updater(bot_token, use_context=True)
+dispatcher = updater.dispatcher
+file = 'file_for_HW_29.csv'
+
+# pip install python-telegram-bot==13.14
+# Updater → Dispatсher → Handlers → start → wait_for_the_end
+# Updater - взаимодействие между клиентом и сервером
+# Dispatсher - отвечает за вызов обработчика сообщений
+# Handlers - обработчики сообщений
+
+
+def start(update, context):
+    context.bot.send_message(update.effective_chat.id,'1 - добавить новый контакт \n(/add_contackt Имя Фамилия Телефон Примичание)')
+    context.bot.send_message(update.effective_chat.id,'2 - Вывод даданных в консоль из файла \n (/print_contakts)')
+    context.bot.send_message(update.effective_chat.id,'3 - Поиск по фамилии \n (/filter_second_name Фамилия)')
+    context.bot.send_message(update.effective_chat.id,'4 - Корректировка строки \n (/re номер строки и что коректируем и новое значение(через пробел) \n пример: \n /re 1 Имя Петр')
+
+
+def add_contackt (update, context):
+    msg = update.message.text.split()
+    text = [msg [1],msg [2],msg [3],msg [4]]
+    add_text (file,text)
+
+def print_contakts (update, context):
+    print_console_bot (file,"Номер телефона",context,update)
+    
+def filter_second_name (update, context):
+    msg = update.message.text.split()
+    second_name = msg [1]   
+    filter_name_bot(file,second_name,context,update)
+
+def re_bd (update, context):
+    msg = update.message.text.split()
+    text = [int(msg [1]),msg [2],msg [3]]  # /re 1 Имя новое
+    list = read_file (file)
+    if text [1] == 'Имя':
+        menu = 0
+    elif text [1] == 'Фамилия':
+        menu = 1
+    elif text [1] == 'Номер телефона':
+        menu = 2
+    elif text [1] == 'Примечание':
+        menu = 3
+    list [text[0]][menu] = text [2]
+    re_file (file,list)
+
+def help (update, context):
+    context.bot.send_message(update.effective_chat.id,'/start - начальное меню')
+    context.bot.send_message(update.effective_chat.id,'/add_contackt - добавление контакта')
+    context.bot.send_message(update.effective_chat.id,'/print_contakts - вывод контактов')
+    context.bot.send_message(update.effective_chat.id,'/filter_second - поиск по фамилии')
+    context.bot.send_message(update.effective_chat.id,'/re_bd - корректировка базыданных')
+    context.bot.send_message(update.effective_chat.id,'/help - меню хелп')
+    
+
+start_handler = CommandHandler('start', start)
+add_contackt_handler = CommandHandler('add_contackt', add_contackt)
+print_contakts_handler = CommandHandler('print_contakts', print_contakts)
+filter_second_name_handler = CommandHandler('filter_name', filter_second_name)
+re_bd_handler = CommandHandler('re_bd', re_bd)
+help_handler = CommandHandler('help', help)
+
+print('server start')
+dispatcher.add_handler(start_handler)
+dispatcher.add_handler(add_contackt_handler)
+dispatcher.add_handler(print_contakts_handler)
+dispatcher.add_handler(filter_second_name_handler)
+dispatcher.add_handler(re_bd_handler)
+dispatcher.add_handler(help_handler)
+
+updater.start_polling()
+updater.idle()
